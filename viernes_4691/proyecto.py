@@ -1,6 +1,9 @@
-#6
 import pygame
+import pygame_menu
 
+
+pygame.init()
+pantalla = pygame.display.set_mode((600, 400))
 
 class Game:
     screen = None
@@ -10,16 +13,17 @@ class Game:
     win = False
 
 
-    def __init__(self, width, height):
-        pygame.init()
+    def __init__(self, width, height, dificultad):
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((width, height))
         self.clock = pygame.time.Clock()
+        self.fondo = pygame.image.load("fondo.png")
+        self.dificultad = dificultad
         done = False
 
         hero = Hero(self, width / 2, height - 20)
-        generator = Generator(self)
+        generator = Generator(self, self.dificultad)
         rocket = None
 
         while not done:
@@ -41,7 +45,7 @@ class Game:
 
             pygame.display.flip()
             self.clock.tick(60)
-            self.screen.fill((0, 0, 0))
+            self.screen.blit(self.fondo, (0, 0))
 
             for alien in self.aliens:
                 alien.draw()
@@ -66,17 +70,17 @@ class Game:
 
 
 class Alien:
-    def __init__(self, game, x, y):
+    def __init__(self, game, x, y, velocity):
         self.x = x
         self.game = game
         self.y = y
         self.size = 30
+        self.image = pygame.image.load("alien.png")
+        self.velocity = velocity
 
     def draw(self):
-        pygame.draw.rect(self.game.screen,
-                         (81, 43, 88),
-                         pygame.Rect(self.x, self.y, self.size, self.size))
-        self.y += 0.05
+        self.game.screen.blit(self.image, (self.x, self.y))
+        self.y += self.velocity
 
     def checkCollision(self, game):
         for rocket in game.rockets:
@@ -93,9 +97,10 @@ class Hero:
         self.x = x
         self.game = game
         self.y = y
+        self.image = pygame.image.load("nave.png")
 
     def draw(self):
-        pygame.draw.rect(self.game.screen,(210, 250, 251),pygame.Rect(self.x, self.y, 8, 5))
+        self.game.screen.blit(self.image, (self.x, self.y))
 
 
 class Rocket:
@@ -110,12 +115,12 @@ class Rocket:
 
 
 class Generator:
-    def __init__(self, game):
+    def __init__(self, game, velocity):
         margin = 30
         width = 50
         for x in range(margin, game.width - margin, width):
             for y in range(margin, int(game.height / 2), width):
-                game.aliens.append(Alien(game, x, y))
+                game.aliens.append(Alien(game, x, y, velocity))
 
 
 
