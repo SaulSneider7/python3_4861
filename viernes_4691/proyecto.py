@@ -1,4 +1,4 @@
-#5
+#6
 import pygame
 
 
@@ -51,7 +51,7 @@ class Game:
                     self.displayText("Perdiste el juego!")
 
             for rocket in self.rockets:
-                if not self.width:
+                if not self.win:
                     rocket.draw()
                 if rocket.y <= 0:
                     self.rockets.remove(rocket)
