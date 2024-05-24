@@ -141,5 +141,8 @@ menu = pygame_menu.Menu(
     width=600
 )
 
+# BOTONES DEL MENU
+menu.add.button('Facil', start_easy)
+
 if __name__ == '__main__':
-    game = Game(600, 400)
+    menu.mainloop(pantalla)
