@@ -122,6 +122,15 @@ class Generator:
             for y in range(margin, int(game.height / 2), width):
                 game.aliens.append(Alien(game, x, y, velocity))
 
+# CREAMOS FUNCIONES PARA CADA DIFICULTAD
+def start_easy():
+    Game(600, 400, 0.1)
+
+def start_medium():
+    Game(600, 400, 0.3)
+
+def start_hard():
+    Game(600, 400, 0.5)
 
 
 if __name__ == '__main__':
