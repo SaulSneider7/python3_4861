@@ -1,5 +1,6 @@
 import pygame
 import pygame_menu
+import pygame_menu.themes
 
 
 pygame.init()
@@ -132,6 +133,13 @@ def start_medium():
 def start_hard():
     Game(600, 400, 0.5)
 
+#Creamos menu
+menu = pygame_menu.Menu(
+    height=400,
+    theme=pygame_menu.themes.THEME_BLUE,
+    title='Menu',
+    width=600
+)
 
 if __name__ == '__main__':
     game = Game(600, 400)
