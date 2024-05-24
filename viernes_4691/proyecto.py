@@ -39,8 +39,8 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    done = True
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    pygame.quit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and len(self.rockets) < 4:
                     self.rockets.append(Rocket(self, hero.x, hero.y))
 
             pygame.display.flip()
